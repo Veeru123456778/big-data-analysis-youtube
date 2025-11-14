@@ -1,0 +1,47 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors / IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.venv/
+venv/
+.env
+pip-wheel-metadata/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Streamlit
+.streamlit/secrets.toml
+.streamlit/*.credentials
+
+# App data / logs (optional)
+logs/
+*.log
+
+# Node (if any UI experiments)
+node_modules/
+
+# Docker / Compose
+docker-compose.override.yml
+.env.local
+.env.*.local
+
+# Project-specific caches (safe to ignore)
+dashboard/__pycache__/
+spark/__pycache__/

@@ -1,0 +1,54 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.6.1
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports: ["2181:2181"]
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.1
+    depends_on: [zookeeper]
+    ports: ["9092:9092"]
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  mongo:
+    image: mongo:6
+    ports: ["27017:27017"]
+    volumes:
+      - mongo_data:/data/db
+
+  worker:
+    image: python:3.11
+    depends_on: [kafka, mongo]
+    working_dir: /app
+    volumes:
+      - ./spark:/app
+    environment:
+      - KAFKA_BOOTSTRAP=kafka:9092
+      - MONGO_URI=mongodb://mongo:27017
+      - TOPIC=yt-comments                     # <-- same topic
+    command: >
+      bash -lc "pip install kafka-python pymongo && python3 spark_job.py"   # <-- filename matches
+
+  dashboard:
+    image: python:3.11
+    depends_on: [mongo, kafka]
+    working_dir: /app
+    volumes:
+      - ./dashboard:/app
+    ports: ["8501:8501"]
+    environment:
+      - MONGO_URI=mongodb://mongo:27017
+      - KAFKA_BROKER=kafka:9092
+      - YT_API_KEY=${YT_API_KEY}
+    command: >
+      bash -lc "pip install -r /app/requirements.txt &&
+      streamlit run app.py --server.port=8501 --server.address=0.0.0.0"
+
+volumes:
+  mongo_data:
