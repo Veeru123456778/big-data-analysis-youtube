@@ -6,10 +6,15 @@ It demonstrates how to integrate **YouTube API**, **Kafka**, **MongoDB**, and **
 
 <img width="598" height="273" alt="Screenshot 2026-09-08 174909" src="https://github.com/user-attachments/assets/17780c5d-29ab-4552-ba80-03c9226b0d47" />
 
+## -------
+
 <img width="599" height="287" alt="Screenshot 2026-09-08 174925" src="https://github.com/user-attachments/assets/1db0c7b3-7ba9-43a0-8796-5cb434b04a41" />
+
+## -------
 
 <img width="596" height="301" alt="Screenshot 2026-09-08 175021" src="https://github.com/user-attachments/assets/18a766d0-5c07-4ec0-bb7f-d4517d12b669" />
 
+## -------
 
 ##  Overview
 
